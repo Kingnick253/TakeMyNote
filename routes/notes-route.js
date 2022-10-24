@@ -24,7 +24,8 @@ router.post('/api/notes', (req, res)=>{
 
     notes_db.push(newNote);
     
-    fs.writeFileSync('./db');
+    fs.writeFileSync('./db/db.json', JSON.stringify(notes_db));
+    res.json(notes_db);
 });
 
 
