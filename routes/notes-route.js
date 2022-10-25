@@ -3,7 +3,7 @@ const router = require('express').Router();
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 let noteDB = require('../db/db.json');
-const {writesToFile , readsFile } = require('../helper/fsUtils');
+
 
 // GET route to get the notes in the db folder
 router.get('/', (req, res) =>{
@@ -35,13 +35,6 @@ router.delete('/:id', (req, res) => {
 
     if(notesId){
     noteDB = noteDB.filter(note => note.id !== notesId);
-    // readsFile('./db/db.json')
-    // .then((noteDB) => JSON.parse(noteDB))
-    // .then((json) =>{
-        // const product = json.filter((notes) => notes.id !== notesId);
-    //         writesToFile('./db/db.json', product);
-    //         res.json(`${notesId} has been removed!`);
-    // });
     fs.writeFile(`./db/db.json`, JSON.stringify(noteDB, null, 4), (err) =>
     err ? console.error(err)
     : console.log(`$${notesId} has been removed!`)
