@@ -3,6 +3,7 @@ const router = require('express').Router();
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 let noteDB = require('../db/db.json');
+const {writesToFile , readsFile } = require('../helper/fsUtils');
 
 // GET route to get the notes in the db folder
 router.get('/', (req, res) =>{
@@ -24,11 +25,30 @@ const {title, text} = req.body;
 
     noteDB.push(newNote);
     
-    fs.writeFileSync('../db/db.json', JSON.stringify(noteDB));
+    fs.writeFileSync('./db/db.json', JSON.stringify(noteDB, null, 4));
     res.json(noteDB);
 }
 });
 
+router.delete('/:id', (req, res) => {
+    const notesId = req.params.id;
+
+    if(notesId){
+    noteDB = noteDB.filter(note => note.id !== notesId);
+    // readsFile('./db/db.json')
+    // .then((noteDB) => JSON.parse(noteDB))
+    // .then((json) =>{
+        // const product = json.filter((notes) => notes.id !== notesId);
+    //         writesToFile('./db/db.json', product);
+    //         res.json(`${notesId} has been removed!`);
+    // });
+    fs.writeFile(`./db/db.json`, JSON.stringify(noteDB, null, 4), (err) =>
+    err ? console.error(err)
+    : console.log(`$${notesId} has been removed!`)
+    );
+ 
+    }
+});
 
 
 

@@ -1,1 +1,12 @@
-[{"id":"5d8eb2dd-90ac-453b-9870-86efdddbeb8c","title":"Test Title","text":"Test text"}]
+[
+    {
+        "id": "5d8eb2dd-90ac-453b-9870-86efdddbeb8c",
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "id": "c0e65d80-a506-4dfa-82fd-59a6e2a99cae",
+        "title": "test for delete",
+        "text": "delete me please"
+    }
+]
