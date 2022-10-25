@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // requires fs to write file
 const fs = require('fs');
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 let noteDB = require('../db/db.json');
 
 // GET route to get the notes in the db folder
@@ -11,22 +11,22 @@ router.get('/', (req, res) =>{
 
 
 router.post('/', (req, res)=>{
-    let notes_db = fs.readFileSync('../db/db.json');
-    notes_db = JSON.parse(notes_db);
-    console.log(notes_db);
 
+const {title, text} = req.body;
+    if(title && text){
     let newNote = {
-
+        id: uuidv4(),
         title: req.body.title,
         text: req.body.text
     };
-
+    
     console.log(newNote);
 
-    notes_db.push(newNote);
+    noteDB.push(newNote);
     
-    fs.writeFileSync('../db/db.json', JSON.stringify(notes_db));
-    res.json(notes_db);
+    fs.writeFileSync('../db/db.json', JSON.stringify(noteDB));
+    res.json(noteDB);
+}
 });
 
 
